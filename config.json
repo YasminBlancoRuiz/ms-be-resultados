@@ -2,6 +2,6 @@
     "url-backend": "127.0.0.1",
     "port": "9999",
 
-    "name-db": "bd-registro-academico",
+    "name-db": "bd-registraduria-resultados",
     "test": "false"
 }
