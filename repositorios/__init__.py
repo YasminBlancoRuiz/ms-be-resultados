@@ -1,0 +1,2 @@
+from .InterfaceRepositorio import InterfaceRepositorio
+from .CandidatoRepositorio import CandidatoRepositorio

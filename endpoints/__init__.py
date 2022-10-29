@@ -1,0 +1,2 @@
+
+from .EndpointsCandidato import endpointCandidato
