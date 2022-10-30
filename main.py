@@ -1,5 +1,3 @@
-
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from waitress import serve
@@ -15,6 +13,7 @@ cors = CORS(app)
 
 #se importan las rutas de estudiante en el main
 app.register_blueprint(endpoints.endpointCandidato)
+app.register_blueprint(endpoints.endpointPartido)
 
 
 def __loadFileConfig():
