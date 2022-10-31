@@ -1,7 +1,7 @@
 from flask import jsonify, request, Blueprint
 from controladores.ControladorMesa import ControladorMesa
 
-ControladorMesa = ControladorMesa()
+controladorMesa = ControladorMesa()
 
 endpointMesa = Blueprint("endpointsMesa", __name__ )
 
@@ -10,27 +10,27 @@ endpointMesa = Blueprint("endpointsMesa", __name__ )
 
 @endpointMesa.route("/mesa",methods=['GET'])
 def index():
-    json = ControladorMesa.index()
+    json = controladorMesa.index()
     return jsonify(json)
 
 @endpointMesa.route("/mesa/<string:id>",methods=['GET'])
 def show(id):
-    json = ControladorMesa.show(id)
+    json = controladorMesa.show(id)
     return jsonify(json)
 
 @endpointMesa.route("/mesa",methods=['POST'])
 def create():
     data = request.get_json()
-    json = ControladorMesa.create(data)
+    json = controladorMesa.create(data)
     return jsonify(json)
 
 @endpointMesa.route("/mesa/<string:id>",methods=['PUT'])
 def update(id):
     data = request.get_json()
-    json = ControladorMesa.update(id, data)
+    json = controladorMesa.update(id, data)
     return jsonify(json)
 
 @endpointMesa.route("/mesa/<string:id>",methods=['DELETE'])
 def delete(id):
-    json = ControladorMesa.delete(id)
+    json = controladorMesa.delete(id)
     return jsonify(json)

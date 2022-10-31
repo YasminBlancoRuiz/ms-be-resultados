@@ -14,8 +14,7 @@ cors = CORS(app)
 #se importan las rutas de estudiante en el main
 app.register_blueprint(endpoints.endpointCandidato)
 app.register_blueprint(endpoints.endpointPartido)
-
-
+app.register_blueprint(endpoints.endpointMesa)
 def __loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
