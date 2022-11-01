@@ -34,6 +34,7 @@ class ControladorResultado():
         resultadoActual = Resultado(self.repositorio.findById(id))
         resultadoActual.Numero_mesa   = data["Numero_mesa"]
         resultadoActual.Id_partido = data["Id_partido"]
+        resultadoActual.Nombre_candidato = data["Nombre_candidato"]
         return self.repositorio.save(resultadoActual )
 
     def delete(self,id):
