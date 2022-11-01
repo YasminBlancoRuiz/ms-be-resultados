@@ -1,11 +1,14 @@
 
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from waitress import serve
 import json
-from flask import jsonify
+from controladores.ControladorCandidato import ControladorCandidato
+from controladores.ControladorPartido import ControladorPartido
+from controladores.ControladorMesa import ControladorMesa
+from controladores.ControladorResultado import ControladorResultado
 
-
+import endpoints
 
 app = Flask(__name__)
 
@@ -13,20 +16,37 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-@app.route("/",methods=['GET'])
-def test():
-    json = {}
-    json["message"]="Server running ..."
-    return jsonify(json)
+#se importan las rutas de estudiante en el main
+app.register_blueprint(endpoints.endpointCandidato)
+
+app.register_blueprint(endpoints.endpointPartido)
+app.register_blueprint(endpoints.endpointMesa)
+app.register_blueprint(endpoints.endpointResultado)
 
 
 
-def loadFileConfig():
+def __loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
     return data
 
+@app.route("/",methods=['GET'])
+def test():
+    json = {}
+    json["message"]="Server running .Pruebas.."
+    return jsonify(json)
+
 if __name__=='__main__':
-    dataConfig = loadFileConfig()
+    dataConfig = __loadFileConfig()
     print("Server running : "+"http://"+dataConfig["url-backend"]+":" + str(dataConfig["port"]))
-    serve(app,host=dataConfig["url-backend"],port=dataConfig["port"])
+    
+    #Para hacer una prueba de conexión
+    
+    if dataConfig["test"] == "true":
+        print("Testing DB conecction...")
+        from repositorios.InterfaceRepositorio import InterfaceRepositorio
+        repo = InterfaceRepositorio()
+    else:
+        serve(app,host=dataConfig["url-backend"],port=dataConfig["port"]) #production -grade WSGI server
+
+

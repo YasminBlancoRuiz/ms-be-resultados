@@ -1,6 +1,9 @@
 {
     "url-backend": "127.0.0.1",
-    "port": "9999"  
+    "port": "9998", 
+
+    "name-db": "bd-resultados",
+    "test": "false"
 }
 
   
