@@ -10,6 +10,21 @@ import json
 T = TypeVar('T')
 
 
+class InterfaceRepositorio(Generic[T]):
+    def __init__(self):
+        ca = certifi.where()  #Obtengo el certificado de la entidad certificadora
+        dataConfig = self.__loadFileConfig() #Información del archivo de configuración
+        client = pymongo.MongoClient(dataConfig["mongo-db-connection-string"], tlsCAFile=ca) #Creo el objeto Mongo y conexión a la BD con el certificado
+        self.baseDatos = client[dataConfig["name-db"]]  #Atributo de la base de datos y la extrae
+        theClass = get_args(self.__orig_bases__[0]) #Extracción de la T  // Extrae el modelo tipo de objeto
+        self.coleccion = theClass[0].__name__.lower() #Extracción de la T
+
+
+#Abre archivo de configuración y lo lee
+#Necesita adicionar lo que hay en el secrets
+    def __loadFileConfig(self):
+
+
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
@@ -32,21 +47,25 @@ class InterfaceRepositorio(Generic[T]):
     # Necesita adicionar lo que hay en el secrets
 
     def loadFileConfig(self):
+
         with open('config.json') as f:
             data = json.load(f)
         with open('secrets.json') as f:
             data.update(json.load(f))
         return data
 
+
     def save(self, item: T):
         laColeccion = self.baseDatos[self.coleccion]  # Colección que se obtuvo al conectarse a la BD
         elId = ""  # variable vacia, luego se llena con un id
         item = self.__transformRefs(item)
         if hasattr(item, "_id") and item._id != "":  # Se cumple cuando el item existe y tiene información
+
             elId = item._id
             _id = ObjectId(elId)
             laColeccion = self.baseDatos[self.coleccion]
             delattr(item, "_id")
+
             item = item.__dict__  # convierte el item en diccionario
             updateItem = {"$set": item}  # lo actualiza
             x = laColeccion.update_one({"_id": _id}, updateItem)  # actualiza un solo elemento
@@ -60,6 +79,7 @@ class InterfaceRepositorio(Generic[T]):
     def delete(self, id):
         laColeccion = self.baseDatos[self.coleccion]
         cuenta = laColeccion.delete_one({"_id": ObjectId(id)}).deleted_count
+
         return {"deleted_count": cuenta}
 
     def update(self, id, item: T):
@@ -91,6 +111,7 @@ class InterfaceRepositorio(Generic[T]):
             x = self.__getValuesDBRef(x)
             data.append(x)
         return data
+
 
     def __query(self, theQuery):
         laColeccion = self.baseDatos[self.coleccion]
@@ -124,7 +145,7 @@ class InterfaceRepositorio(Generic[T]):
                 x[k] = self.__getValuesDBRef(x[k])
             elif isinstance(x[k], list) and len(x[k]) > 0:
                 x[k] = self.__getValuesDBRefFromList(x[k])
-            elif isinstance(x[k], dict):
+
                 x[k] = self.__getValuesDBRef(x[k])
         return x
 
@@ -144,7 +165,9 @@ class InterfaceRepositorio(Generic[T]):
             elif isinstance(x[attribute], list):
                 x[attribute] = self.__formatList(x[attribute])
             elif isinstance(x[attribute], dict):
+
                 x[attribute] = self.__transformObjectIds(x[attribute])
+
         return x
 
     def __formatList(self, x):
@@ -165,6 +188,8 @@ class InterfaceRepositorio(Generic[T]):
                 setattr(item, k, newObject)
         return item
 
+
     def __ObjectToDBRef(self, item: T):
         nameCollection = item.__class__.__name__.lower()
         return DBRef(nameCollection, ObjectId(item._id))
+

@@ -1,3 +1,4 @@
+
 from repositorios.PartidoRepositorio import PartidoRepositorio
 from modelos.Partido import Partido
 
@@ -35,5 +36,8 @@ class ControladorPartido():
         return self.repositorio.save(PartidoActual )
 
     def delete(self,id):
-        print(" >Eliminando partido con id ",id)
+
         return self.repositorio.delete(id)
+        
+        
+

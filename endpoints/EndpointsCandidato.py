@@ -1,5 +1,7 @@
+
 from flask import jsonify, request, Blueprint
 from controladores.ControladorCandidato import ControladorCandidato
+
 
 controladorCandidato = ControladorCandidato()
 

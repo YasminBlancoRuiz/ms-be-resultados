@@ -1,3 +1,4 @@
+
 from repositorios.MesaRepositorio import MesaRepositorio
 from modelos.Mesa import Mesa
 
@@ -32,4 +33,7 @@ class ControladorMesa():
         return self.repositorios.save(mesaActual)
     def delete(self, id):
         print(" >Eliminando mesa con id ", id)
+
         return self.repositorios.delete(id)
+        
+
