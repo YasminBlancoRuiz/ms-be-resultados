@@ -1,1 +1,4 @@
-#no hay necesidad de colocar nada acá
+
+from .ControladorPartido import ControladorPartido
+from .ControladorMesa import ControladorMesa
+

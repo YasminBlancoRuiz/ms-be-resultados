@@ -1,6 +1,7 @@
-from flask import jsonify, request, Blueprint, make_response
+
+from flask import jsonify, request, Blueprint
 from controladores.ControladorCandidato import ControladorCandidato
-import endpoints
+
 
 controladorCandidato = ControladorCandidato()
 

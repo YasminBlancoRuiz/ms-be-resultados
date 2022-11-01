@@ -1,5 +1,6 @@
 
-from flask import jsonify, request, Blueprint, make_response
+from flask import jsonify, request, Blueprint
+
 from controladores.ControladorPartido import ControladorPartido
 
 controladorPartido = ControladorPartido()
@@ -34,5 +35,7 @@ def update(id):
 @endpointPartido.route("/partido/<string:id>",methods=['DELETE'])
 def delete(id):
     json = controladorPartido.delete(id)
+
+
     return jsonify(json)
-    
+

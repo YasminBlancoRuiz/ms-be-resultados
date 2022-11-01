@@ -38,5 +38,6 @@ class ControladorCandidato():
 
     def delete(self,id):
         print(" >Eliminando candidato con id ",id)
+
         return self.repositorio.delete(id)
 
