@@ -1,6 +1,7 @@
 
 
 from repositorios.ResultadoRepositorio import ResultadoRepositorio
+
 from modelos.Resultado import Resultado
 
 
@@ -32,9 +33,7 @@ class ControladorResultado():
     def update(self,id, data):
         print(" >Actualizando partido con id ",id)
         resultadoActual = Resultado(self.repositorio.findById(id))
-        resultadoActual.Numero_mesa   = data["Numero_mesa"]
-        resultadoActual.Id_partido = data["Id_partido"]
-        resultadoActual.Nombre_candidato = data["Nombre_candidato"]
+        resultadoActual.Cantidad_votos   = data["Cantidad_votos"]
         return self.repositorio.save(resultadoActual )
 
     def delete(self,id):
