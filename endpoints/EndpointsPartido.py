@@ -35,7 +35,5 @@ def update(id):
 @endpointPartido.route("/partido/<string:id>",methods=['DELETE'])
 def delete(id):
     json = controladorPartido.delete(id)
-
-
     return jsonify(json)
 

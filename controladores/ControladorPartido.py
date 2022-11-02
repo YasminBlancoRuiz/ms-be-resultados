@@ -33,10 +33,10 @@ class ControladorPartido():
         PartidoActual = Partido(self.repositorio.findById(id))
         PartidoActual.Nombre   = data["Nombre"]
         PartidoActual.Lema = data["Lema"]
-        return self.repositorio.save(PartidoActual )
+        return self.repositorio.save(PartidoActual)
 
     def delete(self,id):
-
+        print(" >Eliminando partido con id ",id)
         return self.repositorio.delete(id)
         
         

@@ -28,12 +28,12 @@ class ControladorMesa():
     def update(self, id, data):
         print(" >Actualizando candidato con id ", id)
         mesaActual = Mesa(self.repositorios.findById(id))
-        mesaActual.Numero = data["Numero"]
-        mesaActual.Cantidad_Inscritos = data["Cantidad_Inscritos"]
+        mesaActual.Numero_mesa = data["Numero_mesa"]
+        mesaActual.Cedulas_inscritas = data["Cedulas_inscritas"]
         return self.repositorios.save(mesaActual)
+
     def delete(self, id):
         print(" >Eliminando mesa con id ", id)
-
         return self.repositorios.delete(id)
         
 

@@ -1,6 +1,7 @@
 
 from flask import jsonify, request, Blueprint
-from controladores.ControladorResultado import ControladorResultado
+from controladores.controladorResultado import ControladorResultado
+
 
 controladorResultado = ControladorResultado()
 
