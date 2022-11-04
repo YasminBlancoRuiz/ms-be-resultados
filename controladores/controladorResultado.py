@@ -1,42 +1,49 @@
-
-
-from repositorios.ResultadoRepositorio import ResultadoRepositorio
-
 from modelos.Resultado import Resultado
-
+from modelos.Mesa import Mesa
+from modelos.Candidato import Candidato
+from repositorios.ResultadoRepositorio import ResultadoRepositorio
+from repositorios.MesaRepositorio import MesaRepositorio
+from repositorios.CandidatoRepositorio import CandidatoRepositorio
 
 class ControladorResultado():
-
-    """Clase que implementa el controlador para los endpoints relacionados con el Resultado"""
-
     def __init__(self):
         print(" >Creando Controlador resultado")
-        self.repositorio = ResultadoRepositorio()
-
+        self.resultadoRepositorio = ResultadoRepositorio()
+        self.mesaRepositorio = MesaRepositorio()
+        self.candidatoRepositorio = CandidatoRepositorio()
     def index(self):
         print("> Listar todos los resultados")
-        x = self.repositorio.findAll()
-        return x
-
-  
-    def create(self,data):
-        print(" >Crear un resultado")
-        elResultado = self.repositorio.save(Resultado(data))
-        return elResultado
-
- 
+        return self.resultadoRepositorio.findAll()
+    """
+     Asignacion mesa y candidato a resultado
+    """
+    def create(self,data,id_mesa,id_candidato):
+         print(" >Crear un resultado")
+         nuevoResultado= Resultado(data)
+         laMesa=Mesa(self.mesaRepositorio.findById(id_mesa))
+         elCandidato=Candidato(self.candidatoRepositorio.findById(id_candidato))
+         nuevoResultado.mesa=laMesa
+         nuevoResultado.candidato=elCandidato
+         return self.resultadoRepositorio.save(nuevoResultado)
     def show(self,id):
         print(" >Mostrando un resultado con id ",id)
-        elResultado = self.repositorio.findById(id)
-        return elResultado
-
-    def update(self,id, data):
-        print(" >Actualizando partido con id ",id)
-        resultadoActual = Resultado(self.repositorio.findById(id))
-        resultadoActual.Cantidad_votos   = data["Cantidad_votos"]
-        return self.repositorio.save(resultadoActual )
-
-    def delete(self,id):
+        elResultado=Resultado(self.resultadoRepositorio.findById(id))
+        return elResultado.__dict__
+    """
+    Modificación de resultado (mesa y candidato)
+    """
+    
+    def update(self,id,data,id_mesa,id_candidato):
+        print(" >Actualizando resultado con id ",id)
+        elResultado=Resultado(self.resultadoRepositorio.findById(id))
+        elResultado.cant_votos =data["cant_votos"]
+        laMesa = Mesa(self.mesaRepositorio.findById(id_mesa))
+        elCandidato=Candidato(self.candidatoRepositorio.findById(id_candidato))
+        elResultado.mesa= laMesa
+        elResultado.candidato =elCandidato
+        return self.resultadoRepositorio.save(elResultado)
+    
+    def delete(self, id):
         print(" >Eliminando resultado con id ",id)
-        return self.repositorio.delete(id)
+        return self.resultadoRepositorio.delete(id)
         

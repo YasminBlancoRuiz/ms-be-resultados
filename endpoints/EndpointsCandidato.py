@@ -36,3 +36,8 @@ def update(id):
 def delete(id):
     json = controladorCandidato.delete(id)
     return jsonify(json)
+
+@endpointCandidato.route("/candidato/<string:id>/partido/<string:id_partido>",methods=['PUT'])
+def asignarPartidoCandidato(id,id_partido):
+    json=controladorCandidato.asignarPartido(id,id_partido)
+    return jsonify(json)    
