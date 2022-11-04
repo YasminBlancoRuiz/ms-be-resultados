@@ -20,16 +20,16 @@ def show(id):
     json = controladorResultado.show(id)
     return jsonify(json)
 
-@endpointResultado.route("/resultado",methods=['POST'])
-def create():
+@endpointResultado.route("/resultado/mesa/<string:id_mesa>/candidato/<string:id_candidato>",methods=['POST'])
+def create(id_mesa,id_candidato):
     data = request.get_json()
-    json = controladorResultado.create(data)
+    json = controladorResultado.create(data,id_mesa,id_candidato)
     return jsonify(json)
 
-@endpointResultado.route("/resultado/<string:id>",methods=['PUT'])
-def update(id):
+@endpointResultado.route("/resultado/<string:id_resultado>/mesa/<string:id_mesa>/candidato/<string:id_candidato>",methods=['PUT'])
+def update(id_resultado,id_mesa,id_candidato):
     data = request.get_json()
-    json = controladorResultado.update(id, data)
+    json = controladorResultado.update(id_resultado, data,id_mesa,id_candidato)
     return jsonify(json)
 
 @endpointResultado.route("/resultado/<string:id>",methods=['DELETE'])

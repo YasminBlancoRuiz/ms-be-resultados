@@ -11,7 +11,7 @@ class ControladorMesa():
         self.repositorios = MesaRepositorio()
 
     def index(self):
-        print("> Listar todas las mesas")
+        print(" >Listar todas las mesas")
         x = self.repositorios.findAll()
         return x
 
