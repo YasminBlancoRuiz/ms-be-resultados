@@ -15,6 +15,7 @@ def index():
     json = controladorResultado.index()
     return jsonify(json)
 
+
 @endpointResultado.route("/resultado/<string:id>",methods=['GET'])
 def show(id):
     json = controladorResultado.show(id)
