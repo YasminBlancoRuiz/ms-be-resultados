@@ -19,12 +19,6 @@ app.register_blueprint(endpoints.endpointMesa)
 app.register_blueprint(endpoints.endpointResultado)
 
 
-
-def __loadFileConfig():
-    with open('config.json') as f:
-        data = json.load(f)
-    return data
-
 @app.route("/",methods=['GET'])
 def test():
     json = {}
